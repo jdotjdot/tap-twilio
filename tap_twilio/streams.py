@@ -255,7 +255,7 @@ STREAMS = {
                 'replication_keys': ['date_sent'],
                 'bookmark_query_field_from': 'DateSent>',  # Daily
                 'bookmark_query_field_to': 'DateSent<',
-                'params': {},
+                'params': {'PageSize': 500},
                 'pagingation': 'root',
                 'children': {
                     # pylint: disable=line-too-long
