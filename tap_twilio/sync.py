@@ -248,10 +248,8 @@ def sync_endpoint(
                 break  # No data results
 
             # Get pagination details
-            pagination = data.get('meta', {}).get('pagination', {})
-            api_total = int(pagination.get('total_results', 0))
-            if pagination.get('next', {}).get('rel') == 'next':
-                next_url = pagination.get('next', {}).get('href')
+            if data.get('next_page_uri'):
+                next_url = 'https://api.twilio.com' + data.get('next_page_uri')
             else:
                 next_url = None
 
@@ -364,11 +362,7 @@ def sync_endpoint(
                 # End if children
 
             # Parent record batch
-            # Adjust total_records w/ record_count, if needed
-            if record_count > total_records:
-                total_records = total_records + record_count
-            else:
-                total_records = api_total
+            total_records = total_records + record_count
 
             # to_rec: to record; ending record for the batch page
             to_rec = offset + limit
